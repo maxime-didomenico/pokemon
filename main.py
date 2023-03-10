@@ -11,13 +11,27 @@ class Main():
 
 
     def add_pokemon(self):
-        name = input("Nom du Pokemon : ")
+        name = input("Pokemon's name : ")
         level = 1
-        type = input("Type du Pokemon : ")
-        health = int(input("Vie du Pokemon : "))
+        print("All the Pokemon types are : Fire, Water, Electric, Grass, Ice, Fighting, Poison, Ground, Flying, Psychic, Bug, Rock, Ghost, Dragon, Dark, Steel, Fairy")
+        
+        type = input("Pokemon type : ")
+        while type not in ["Fire", "Water", "Electric", "Grass", "Ice", "Fighting", "Poison", "Ground", "Flying", "Psychic", "Bug", "Rock", "Ghost", "Dragon", "Dark", "Steel", "Fairy"]:
+            type = input("Error, enter a good Pokemon type : ")
+        
+        choice = input("Do you to add a second type ? (y/n)\n")
+        while choice not in ["y", "n"]:
+            choice = input("Error, enter a good answer (y/n)\n")
+        
+        if choice == "y":
+            type2 = input("Pokemon second type : ")
+            while type2 not in ["Fire", "Water", "Electric", "Grass", "Ice", "Fighting", "Poison", "Ground", "Flying", "Psychic", "Bug", "Rock", "Ghost", "Dragon", "Dark", "Steel", "Fairy"]:
+                type2 = input("Error, enter a good Pokemon type : ")
 
-        attack = int(input("Attaque du Pokemon : "))
-        defense = int(input("Defense du Pokemon : "))
+        health = 5
+
+        attack = 20
+        defense = 20
 
         with open('pokedex.json', 'r') as f:
             pokedex = json.load(f)
@@ -26,6 +40,7 @@ class Main():
             'nom': name,
             'level': level,
             'type': type,
+            'type2': type2,
             'health': health,
             'attack': attack,
             'defense': defense,
@@ -204,6 +219,10 @@ class Main():
             
             for pokemon in pokedex:
                 if pokemon['nom'] != 'Mew':
+                    pokemon['level'] = 1
+                    pokemon['health'] = pokemon['health_base']
+                    pokemon['attack'] = pokemon['attack_base']
+                    pokemon['defense'] = pokemon['defense_base']
                     pokemon['discovered'] = 'false'
 
             with open('pokedex.json', 'w') as f:

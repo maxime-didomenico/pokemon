@@ -47,6 +47,7 @@ class Combat():
 
         self.pokemon1 = pokemon1
         self.pokemon2 = pokemon2
+        self.max_health = pokemon1.get_health()
 
 
     def special_attack(self, pokemon1, pokemon2):
@@ -108,7 +109,12 @@ class Combat():
 
             self.pokemon2.current_health = 0
             self.print_stats()
-            print(self.pokemon1.get_name(), "has won the battle!\nYou Win !")
+            print(self.pokemon1.get_name(), "has won the battle and xp !\nYou Win !")
+
+            self.pokemon1.attack += 5
+            self.pokemon1.defense += 5
+            self.pokemon1.set_health(self.max_health + 5)
+            self.pokemon1.level += 3
 
             with open('pokedex.json') as f:
                 pokedex = json.load(f)
@@ -121,6 +127,15 @@ class Combat():
                     else:
                         pokemon['discovered'] = 'true'
                         print(f'{self.pokemon2.get_name()} has been discovered !')
+                
+                    with open('pokedex.json', 'w') as f:
+                        json.dump(pokedex, f, indent=4)
+                
+                if pokemon['nom'] == self.pokemon1.get_name():
+                    pokemon['level'] = self.pokemon1.level
+                    pokemon['attack'] = self.pokemon1.attack
+                    pokemon['defense'] = self.pokemon1.defense
+                    pokemon['health'] = self.pokemon1.get_health()
                 
                     with open('pokedex.json', 'w') as f:
                         json.dump(pokedex, f, indent=4)

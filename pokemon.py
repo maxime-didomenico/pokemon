@@ -16,3 +16,6 @@ class Pokemon():
     
     def get_health(self):
         return self.__health
+    
+    def set_health(self, health):
+        self.__health = health
