@@ -109,12 +109,12 @@ class Combat():
 
             self.pokemon2.current_health = 0
             self.print_stats()
-            print(self.pokemon1.get_name(), "has won the battle and xp !\nYou Win !")
+            print(self.pokemon1.get_name(), "has won the battle and evolved !\nYou Win !")
 
-            self.pokemon1.attack += 5
-            self.pokemon1.defense += 5
-            self.pokemon1.set_health(self.max_health + 5)
-            self.pokemon1.level += 3
+            self.pokemon1.attack += 15
+            self.pokemon1.defense += 15
+            self.pokemon1.set_health(self.max_health + 15)
+            self.pokemon1.level += 5
 
             with open('pokedex.json') as f:
                 pokedex = json.load(f)
@@ -151,15 +151,18 @@ class Combat():
 
             while choice != 1 or choice != 2:
 
-                list_pokemon = ["Bulbizarre", "Salameche", "Carapuce","Mew"]
-                color_list = ["\033[32m", "\033[31m", "\u001b[36m", "\u001b[35m"]
-                for pokemon in list_pokemon:
-                    if pokemon == self.pokemon2.get_name():
-                        print(color_list[list_pokemon.index(pokemon)], self.pokemon2.front_app, '\033[0m')
+                list_pokemon = ["Bulbizarre", "Herbizarre", "Florizarre", "Salameche", "Reptincel", "Dracaufeu", "Carapuce", "Carabaffe", "Tortank", "Mew"]
+                color_dict = {"grass": "\033[32m", "fire": "\033[31m", "water": "\u001b[36m", "psychic": "\u001b[35m"}
 
                 for pokemon in list_pokemon:
-                    if pokemon == self.pokemon1.get_name():
-                        print(color_list[list_pokemon.index(pokemon)], self.pokemon1.back_app, '\033[0m')
+                    if self.pokemon2 and pokemon == self.pokemon2.get_name():
+                        print(color_dict[self.pokemon2.type], self.pokemon2.front_app, '\033[0m')
+
+                for pokemon in list_pokemon:
+                    if self.pokemon1 and pokemon == self.pokemon1.get_name():
+                        print(color_dict[self.pokemon1.type], self.pokemon1.back_app, '\033[0m')
+
+
 
                 self.print_stats()
 

@@ -67,9 +67,21 @@ class Main():
             print("\nYou haven't discovered any pokemon yet !\n")
 
 
+    def launching_fight(self, pokemon1_data, pokemon2_data):
+        if pokemon1_data['level'] == 5:
+            pokemon1 = Pokemon(pokemon1_data['evolution1'], pokemon1_data['level'], pokemon1_data['type'], pokemon1_data['health'], pokemon1_data['attack'], pokemon1_data['defense'], pokemon1_data['back_app_1'], pokemon1_data['front_app'])
+        elif pokemon1_data['level'] == 10:
+            pokemon1 = Pokemon(pokemon1_data['evolution2'], pokemon1_data['level'], pokemon1_data['type'], pokemon1_data['health'], pokemon1_data['attack'], pokemon1_data['defense'], pokemon1_data['back_app_2'], pokemon1_data['front_app'])
+        else:
+            pokemon1 = Pokemon(pokemon1_data['nom'], pokemon1_data['level'], pokemon1_data['type'], pokemon1_data['health'], pokemon1_data['attack'], pokemon1_data['defense'], pokemon1_data['back_app'], pokemon1_data['front_app'])
+        
+        pokemon2 = Pokemon(pokemon2_data['nom'], pokemon2_data['level'], pokemon2_data['type'], pokemon2_data['health'], pokemon2_data['attack'], pokemon2_data['defense'], pokemon2_data['back_app'], pokemon2_data['front_app'])
+        Combat(pokemon1, pokemon2).combat()
+
+
     def menu(self):
         choice = 0
-        while choice != 1 or choice != 2:
+        while choice != 1 or choice != 2 or choice.type() != int:
             print("\n1. I want to start a fight !\n2. I want to create or add a Pokemon\n3. Check my Pokedex\n4. Go home\n")
             choice = int(input("What would you like to do ?\n"))
             if choice >= 1 and choice <= 4:
@@ -96,7 +108,12 @@ class Main():
                 # Print the list of available Pokemon and let the user choose one
                 print("Choose a Pokemon:")
                 for i, p in enumerate(available_pokemon):
-                    print(f"{i+1}. {p['nom']}")
+                    if p['level'] == 5:
+                        print(f"{i+1}. {p['evolution1']}")
+                    elif p['level'] == 10:
+                        print(f"{i+1}. {p['evolution2']}")
+                    else:
+                        print(f"{i+1}. {p['nom']}")
 
                 pokemon1_index = int(input("Enter the number of the Pokemon you want to choose: ")) - 1
                 pokemon1_data = available_pokemon[pokemon1_index]
@@ -110,10 +127,7 @@ class Main():
                 # Add the chosen Pokemon to the list of already chosen ones
                 chosen_pokemon.extend([pokemon1_data['nom'], pokemon2_data['nom']])
 
-                pokemon1 = Pokemon(pokemon1_data['nom'], pokemon1_data['level'], pokemon1_data['type'], pokemon1_data['health'], pokemon1_data['attack'], pokemon1_data['defense'], pokemon1_data['back_app'], pokemon1_data['front_app'])
-                pokemon2 = Pokemon(pokemon2_data['nom'], pokemon2_data['level'], pokemon2_data['type'], pokemon2_data['health'], pokemon2_data['attack'], pokemon2_data['defense'], pokemon2_data['back_app'], pokemon2_data['front_app'])
-
-                Combat(pokemon1, pokemon2).combat()
+                self.launching_fight(pokemon1_data, pokemon2_data)
                 return 0
             
             else:
@@ -129,10 +143,7 @@ class Main():
                     # Add the chosen Pokemon to the list of already chosen ones
                     chosen_pokemon.extend([pokemon1_data['nom'], pokemon2_data['nom']])
 
-                    pokemon1 = Pokemon(pokemon1_data['nom'], pokemon1_data['level'], pokemon1_data['type'], pokemon1_data['health'], pokemon1_data['attack'], pokemon1_data['defense'], pokemon1_data['back_app'], pokemon1_data['front_app'])
-                    pokemon2 = Pokemon(pokemon2_data['nom'], pokemon2_data['level'], pokemon2_data['type'], pokemon2_data['health'], pokemon2_data['attack'], pokemon2_data['defense'], pokemon2_data['back_app'], pokemon2_data['front_app'])
-
-                    Combat(pokemon1, pokemon2).combat()
+                    self.launching_fight(pokemon1_data, pokemon2_data)
                     return 0
             
                 if len(playable_pokemon) > 1 and len(playable_pokemon) < 3:
@@ -150,10 +161,7 @@ class Main():
                     while pokemon2_data['nom'] == pokemon1_data['nom']:
                         pokemon2_data = random.choice(playable_pokemon)
 
-                    pokemon1 = Pokemon(pokemon1_data['nom'], pokemon1_data['level'], pokemon1_data['type'], pokemon1_data['health'], pokemon1_data['attack'], pokemon1_data['defense'], pokemon1_data['back_app'], pokemon1_data['front_app'])
-                    pokemon2 = Pokemon(pokemon2_data['nom'], pokemon2_data['level'], pokemon2_data['type'], pokemon2_data['health'], pokemon2_data['attack'], pokemon2_data['defense'], pokemon2_data['back_app'], pokemon2_data['front_app'])
-
-                    Combat(pokemon1, pokemon2).combat()
+                    self.launching_fight(pokemon1_data, pokemon2_data)
                     return 0
                 
                 if len(playable_pokemon) == 3:
@@ -176,10 +184,7 @@ class Main():
                     # Add the chosen Pokemon to the list of already chosen ones
                     chosen_pokemon.extend([pokemon1_data['nom'], pokemon2_data['nom']])
 
-                    pokemon1 = Pokemon(pokemon1_data['nom'], pokemon1_data['level'], pokemon1_data['type'], pokemon1_data['health'], pokemon1_data['attack'], pokemon1_data['defense'], pokemon1_data['back_app'], pokemon1_data['front_app'])
-                    pokemon2 = Pokemon(pokemon2_data['nom'], pokemon2_data['level'], pokemon2_data['type'], pokemon2_data['health'], pokemon2_data['attack'], pokemon2_data['defense'], pokemon2_data['back_app'], pokemon2_data['front_app'])
-
-                    Combat(pokemon1, pokemon2).combat()
+                    self.launching_fight(pokemon1_data, pokemon2_data)
                     return 0
                     
 
