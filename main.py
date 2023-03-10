@@ -123,6 +123,8 @@ class Main():
                 if len(playable_pokemon) == 1:
                     pokemon1_data = playable_pokemon[0]
                     pokemon2_data = random.choice(available_pokemon)
+                    while pokemon2_data['nom'] == pokemon1_data['nom']:
+                        pokemon2_data = random.choice(available_pokemon)
 
                     # Add the chosen Pokemon to the list of already chosen ones
                     chosen_pokemon.extend([pokemon1_data['nom'], pokemon2_data['nom']])
