@@ -87,8 +87,8 @@ class Combat():
 
     def print_stats(self):
 
-        print("\n +------------------------------------+\n", "  ",self.pokemon1.id, "has", '\033[32m', self.pokemon1.current_health, '\033[0m', "health left     ")
-        print("   ", self.pokemon2.id, "has", "\033[31m", self.pokemon2.current_health, '\033[0m', "health left     \n", "+------------------------------------+\n")
+        print("\n +------------------------------------+\n", "  ",self.pokemon1.get_name(), "has", '\033[32m', self.pokemon1.current_health, '\033[0m', "health left     ")
+        print("   ", self.pokemon2.get_name(), "has", "\033[31m", self.pokemon2.current_health, '\033[0m', "health left     \n", "+------------------------------------+\n")
 
 
     def check_loose(self):
@@ -102,25 +102,25 @@ class Combat():
 
             self.pokemon1.current_health = 0
             self.print_stats()
-            print(self.pokemon2.id, "has won the battle!\nYou Loose !")
+            print(self.pokemon2.get_name(), "has won the battle!\nYou Loose !")
         
         if self.pokemon2.current_health <= 0:
 
             self.pokemon2.current_health = 0
             self.print_stats()
-            print(self.pokemon1.id, "has won the battle!\nYou Win !")
+            print(self.pokemon1.get_name(), "has won the battle!\nYou Win !")
 
             with open('pokedex.json') as f:
                 pokedex = json.load(f)
 
             for pokemon in pokedex:
-                if pokemon['nom'] == self.pokemon2.id:
+                if pokemon['nom'] == self.pokemon2.get_name():
                     if pokemon['discovered'] == 'true':
-                        print(f'{self.pokemon2.id} is already discovered !')
+                        print(f'{self.pokemon2.get_name()} is already discovered !')
                     
                     else:
                         pokemon['discovered'] = 'true'
-                        print(f'{self.pokemon2.id} has been discovered !')
+                        print(f'{self.pokemon2.get_name()} has been discovered !')
                 
                     with open('pokedex.json', 'w') as f:
                         json.dump(pokedex, f, indent=4)
@@ -139,11 +139,11 @@ class Combat():
                 list_pokemon = ["Bulbizarre", "Salameche", "Carapuce","Mew"]
                 color_list = ["\033[32m", "\033[31m", "\u001b[36m", "\u001b[35m"]
                 for pokemon in list_pokemon:
-                    if pokemon == self.pokemon2.id:
+                    if pokemon == self.pokemon2.get_name():
                         print(color_list[list_pokemon.index(pokemon)], self.pokemon2.front_app, '\033[0m')
 
                 for pokemon in list_pokemon:
-                    if pokemon == self.pokemon1.id:
+                    if pokemon == self.pokemon1.get_name():
                         print(color_list[list_pokemon.index(pokemon)], self.pokemon1.back_app, '\033[0m')
 
                 self.print_stats()
@@ -154,21 +154,21 @@ class Combat():
                 if choice == 1 or choice == 2:
                     break
                 else:
-                    print("Invalid input, please try again\n")
+                    print("Invalget_name() input, please try again\n")
             
             if choice == 1:
                 att = self.attack(self.pokemon1, self.pokemon2)
                 if att == 0:
-                    print(f"{self.pokemon1.id} missed !")
+                    print(f"{self.pokemon1.get_name()} missed !")
                 else :
-                    print(f"{self.pokemon1.id} used attack and inflicted", '\033[32m', att, '\033[0m', "damage")
+                    print(f"{self.pokemon1.get_name()} used attack and inflicted", '\033[32m', att, '\033[0m', "damage")
 
             elif choice == 2:
                 att = self.special_attack(self.pokemon1, self.pokemon2)
                 if att == 0:
-                    print(f"{self.pokemon1.id} missed !")
+                    print(f"{self.pokemon1.get_name()} missed !")
                 else :
-                    print(f"{self.pokemon1.id} used attack and inflicted", '\033[32m', att, '\033[0m', "damage")
+                    print(f"{self.pokemon1.get_name()} used attack and inflicted", '\033[32m', att, '\033[0m', "damage")
 
             if self.check_loose() != 1:
                 opponent_choice = random.randint(1, 2)
@@ -176,15 +176,15 @@ class Combat():
                 if opponent_choice == 1:
                     att = self.attack(self.pokemon2, self.pokemon1)
                     if att == 0:
-                        print(f"{self.pokemon2.id} missed !")
+                        print(f"{self.pokemon2.get_name()} missed !")
                     else :
-                        print(f"{self.pokemon2.id} used attack and inflicted", '\033[31m', att, '\033[0m', "damage")
+                        print(f"{self.pokemon2.get_name()} used attack and inflicted", '\033[31m', att, '\033[0m', "damage")
 
                 elif opponent_choice == 2:
                     att = self.special_attack(self.pokemon2, self.pokemon1)
                     if att == 0:
-                        print(f"{self.pokemon2.id} missed !")
+                        print(f"{self.pokemon2.get_name()} missed !")
                     else :
-                        print(f"{self.pokemon2.id} used special attack and inflicted", '\033[31m', att, '\033[0m', "damage")
+                        print(f"{self.pokemon2.get_name()} used special attack and inflicted", '\033[31m', att, '\033[0m', "damage")
 
                 self.check_loose()

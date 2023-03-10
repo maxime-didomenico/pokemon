@@ -2,7 +2,6 @@ class Pokemon():
 
     def __init__(self, name, level, type, health, attack, defense, back_app, front_app):
         self.__name = name
-        self.id = name
         self.level = level
         self.type = type
         self.__health = health
