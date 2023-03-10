@@ -147,6 +147,8 @@ class Main():
 
                     # Choose a random Pokemon from the list
                     pokemon2_data = random.choice(playable_pokemon)
+                    while pokemon2_data['nom'] == pokemon1_data['nom']:
+                        pokemon2_data = random.choice(playable_pokemon)
 
                     pokemon1 = Pokemon(pokemon1_data['nom'], pokemon1_data['level'], pokemon1_data['type'], pokemon1_data['health'], pokemon1_data['attack'], pokemon1_data['defense'], pokemon1_data['back_app'], pokemon1_data['front_app'])
                     pokemon2 = Pokemon(pokemon2_data['nom'], pokemon2_data['level'], pokemon2_data['type'], pokemon2_data['health'], pokemon2_data['attack'], pokemon2_data['defense'], pokemon2_data['back_app'], pokemon2_data['front_app'])
